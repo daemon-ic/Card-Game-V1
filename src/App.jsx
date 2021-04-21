@@ -1,20 +1,31 @@
 import React, { useState } from "react";
 import { GamesData } from "./data/GamesData";
 import GameScreen from "./components/GameScreen";
-import ChevronRightRoundedIcon from "@material-ui/icons/ChevronRightRounded";
-import ChevronLeftRoundedIcon from "@material-ui/icons/ChevronLeftRounded";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import NextPage from "./components/home_components/NextPage";
+import PrevPage from "./components/home_components/PrevPage";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
+  main: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    width: "100vw",
+    backgroundColor: "#F6F7FB",
+  },
+
+  home: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
+  },
+
+  start: {
+    marginTop: "30px",
+    fontWeight: "bold",
   },
 }));
 
@@ -46,82 +57,38 @@ function App() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        width: "100vw",
-        backgroundColor: "#F6F7FB",
-      }}
-    >
+    <div className={classes.main}>
       {HomePage ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className={classes.home}>
           <div style={{ display: "flex", flexDirection: "row" }}>
-            {idx === 0 && (
-              <div className={classes.button}>
-                <Button onClick={idxDown} disabled>
-                  <ChevronLeftRoundedIcon
-                    style={{ height: "50px", width: "50px" }}
-                  />
-                </Button>
-              </div>
-            )}
-            {idx !== 0 && (
-              <div className={classes.button}>
-                <Button onClick={idxDown} color="primary">
-                  <ChevronLeftRoundedIcon
-                    style={{ height: "50px", width: "50px" }}
-                  />
-                </Button>
-              </div>
+            {idx === 0 ? (
+              <PrevPage idxDown={idxDown} disable={true} />
+            ) : (
+              <PrevPage idxDown={idxDown} disable={false} />
             )}
 
             <div style={{ color: "#303545", textAlign: "center" }}>
               <h1>{currentGame.name}</h1>
             </div>
 
-            {idx === GamesData.length - 1 && (
-              <div className={classes.button}>
-                <Button onClick={idxUp} disabled>
-                  <ChevronRightRoundedIcon
-                    style={{ height: "50px", width: "50px" }}
-                  />
-                </Button>
-              </div>
-            )}
-
-            {idx !== GamesData.length - 1 && (
-              <div className={classes.button}>
-                <Button onClick={idxUp} color="primary">
-                  <ChevronRightRoundedIcon
-                    style={{ height: "50px", width: "50px" }}
-                  />
-                </Button>
-              </div>
+            {idx === GamesData.length - 1 ? (
+              <NextPage idxUp={idxUp} disable={true} />
+            ) : (
+              <NextPage idxUp={idxUp} disable={false} />
             )}
           </div>
 
           <Button
-            style={{ marginTop: "30px", fontWeight: "bold" }}
-            onClick={onGameSelect}
             variant="contained"
             color="primary"
+            className={classes.start}
+            onClick={onGameSelect}
           >
             START
           </Button>
         </div>
       ) : (
         <div>
-          {/* <button onClick={backToHome}>back</button> */}
           <GameScreen backToHome={backToHome} currentGame={currentGame} />
         </div>
       )}
@@ -130,15 +97,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* {page === "" && (
-        <div>
-          {currentGame.name}
-          <button onClick={idxDown}>left</button>
-          <button onClick={idxUp}>right</button>
-          <button onClick={backToHome}>back</button>
-        </div>
-      )}
-      {page === 0 && <div>hi</div>} */
-}
