@@ -2,7 +2,6 @@ import React from "react";
 import RefreshRoundedIcon from "@material-ui/icons/RefreshRounded";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   refreshButton: {

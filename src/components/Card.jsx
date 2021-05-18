@@ -37,14 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Card = ({
-  copyToClipboard,
-  currentGame,
-  currentQuestion,
-  transitionStyle,
-  onNextCard,
-  questions,
-}) => {
+const Card = ({ currentGame, currentQuestion, transitionStyle }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -70,7 +63,8 @@ const Card = ({
   return (
     <>
       <Paper
-        className={transitionStyle}
+        className="slide active"
+        id="card-item"
         elevation={3}
         style={{
           borderRadius: "15px",
